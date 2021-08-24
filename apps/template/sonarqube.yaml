@@ -16,11 +16,19 @@ spec:
     targetRevision: HEAD
     helm:
        values: | 
-          image:
-            tag: latest 
           ingress:
-              host: argocd-devops.$INGRESS_HOST.xip.io
-          version: v3   
+          enabled: false
+          hosts:
+            - name: sonarqube.{{ .Values.cluster }}.{{ .Values.project }}.{{ .Values.domain }}
+              path: /
+          annotations:
+            kubernetes.io/tls-acme: "true"
+            cert-manager.io/cluster-issuer: letsencrypt-prod
+          tls:
+            - secretName: {{ include "common-argo.fullname" . }}-sonarqube-tls
+              hosts:
+                - sonarqube.{{ .Values.cluster }}.{{ .Values.project }}.{{ .Values.domain }}
+  
   syncPolicy:
     automated:
       selfHeal: true
