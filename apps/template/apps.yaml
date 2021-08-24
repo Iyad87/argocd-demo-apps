@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-devops
+  name: iyad-devops
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,16 +11,9 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: helm
-    repoURL: https://github.com/iyad87/argocd-devops
-    targetRevision: HEAD
-    helm:
-       values: | 
-          image:
-            tag: latest 
-          ingress:
-              host: argocd--devops.$INGRESS_HOST.xip.io
-          version: v3   
+    path: apps
+    repoURL: https://github.com/iyad87/argocd-demo-apps
+    targetRevision: HEAD 
   syncPolicy:
     automated:
       selfHeal: true

@@ -1,1 +1,1 @@
-# argocd-demo-apps
+## Setting up Argo CD with Helm
