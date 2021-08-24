@@ -18,16 +18,7 @@ spec:
        values: | 
           ingress:
           enabled: false
-          hosts:
-            - name: sonarqube.{{ .Values.cluster }}.{{ .Values.project }}.{{ .Values.domain }}
-              path: /
-          annotations:
-            kubernetes.io/tls-acme: "true"
-            cert-manager.io/cluster-issuer: letsencrypt-prod
-          tls:
-            - secretName: {{ include "common-argo.fullname" . }}-sonarqube-tls
-              hosts:
-                - sonarqube.{{ .Values.cluster }}.{{ .Values.project }}.{{ .Values.domain }}
+          
   
   syncPolicy:
     automated:
